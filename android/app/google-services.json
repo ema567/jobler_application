@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "968916126149",
+    "project_id": "flutter-jobler",
+    "storage_bucket": "flutter-jobler.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:968916126149:android:99cc7cd4b60ba6d3e623ac",
+        "android_client_info": {
+          "package_name": "com.example.jobler_application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCkbWP3hgpqM_zC7PkWvC16ywaaSMM5KIk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
