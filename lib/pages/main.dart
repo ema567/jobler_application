@@ -34,18 +34,15 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  await Firebase.initializeApp(
-  options: DefaultFirebaseOptions.currentPlatform,
-);
-  // WidgetsFlutterBinding.ensureInitialized();
-  // Platform.isAndroid
-  //     ? await Firebase.initializeApp(
-  //         options: FirebaseOptions(
-  //             apiKey: 'AIzaSyCkbWP3hgpqM_zC7PkWvC16ywaaSMM5KIk',
-  //             appId: '1:968916126149:android:99cc7cd4b60ba6d3e623ac',
-  //             messagingSenderId: '968916126149',
-  //             projectId: 'flutter-jobler'))
-  //     : await Firebase.initializeApp();
+  WidgetsFlutterBinding.ensureInitialized();
+  Platform.isAndroid
+      ? await Firebase.initializeApp(
+          options: FirebaseOptions(
+              apiKey: 'AIzaSyBiCLXcs05m1965pmZnv2acGqeV47NUMc4',
+              appId: '1:627087928722:android:63417a7220f10fc71f254b',
+              messagingSenderId: '627087928722',
+              projectId: 'flutterjobler'))
+      : await Firebase.initializeApp();
   runApp(const Jobler());
 }
 
