@@ -113,8 +113,8 @@ class _ProfileState extends State<Profile> {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: ()  {
-                //  await FirebaseAuth.instance.signOut();
+                  onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
                     Navigator.of(context)
                         .pushNamedAndRemoveUntil("/", (route) => false);
                   },
