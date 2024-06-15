@@ -116,7 +116,7 @@ class _ProfileState extends State<Profile> {
                   onPressed: () async {
                   await FirebaseAuth.instance.signOut();
                     Navigator.of(context)
-                        .pushNamedAndRemoveUntil("/", (route) => false);
+                        .pushNamedAndRemoveUntil("Hello", (route) => false);
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.deepPurple[300],
