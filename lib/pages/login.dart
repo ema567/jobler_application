@@ -110,7 +110,7 @@ class _LoginState extends State<Login> {
                       final credential = await FirebaseAuth.instance
                           .signInWithEmailAndPassword(
                               email: email.text, password: password.text);
-                      Navigator.of(context).pushReplacementNamed("/Home");
+                       Navigator.of(context).pushReplacementNamed("/Home");
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'user-not-found') {
                         print('No user found for that email.');
