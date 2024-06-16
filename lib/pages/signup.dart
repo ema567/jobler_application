@@ -15,7 +15,6 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
-  TextEditingController fullname = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController email = TextEditingController();
 
@@ -61,7 +60,6 @@ class _SignupState extends State<Signup> {
                       width: 266,
                       padding: EdgeInsets.symmetric(horizontal: 15),
                       child: TextField(
-                        controller: fullname,
                         decoration: InputDecoration(
                             icon: Icon(
                               Icons.app_registration,

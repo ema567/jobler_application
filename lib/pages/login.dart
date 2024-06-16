@@ -1,13 +1,22 @@
-// ignore_for_file: prefer_const_constructors, sort_child_properties_last, unnecessary_import, avoid_web_libraries_in_flutter, unused_import
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last, unnecessary_import, avoid_web_libraries_in_flutter, unused_import, avoid_print, unused_local_variable, use_build_context_synchronously
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(const Login());
 }
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  TextEditingController password = TextEditingController();
+  TextEditingController email = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -52,6 +61,7 @@ class Login extends StatelessWidget {
                   width: 266,
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: TextField(
+                    controller: email,
                     decoration: InputDecoration(
                         icon: Icon(
                           Icons.email_outlined,
@@ -73,6 +83,7 @@ class Login extends StatelessWidget {
                   width: 266,
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: TextField(
+                    controller: password,
                     obscureText: false,
                     decoration: InputDecoration(
                         suffix: Icon(
@@ -93,7 +104,19 @@ class Login extends StatelessWidget {
                   height: 20,
                 ),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    try {
+                      final credential = await FirebaseAuth.instance
+                          .signInWithEmailAndPassword(
+                              email: email.text, password: password.text);
+                    } on FirebaseAuthException catch (e) {
+                      if (e.code == 'user-not-found') {
+                        print('No user found for that email.');
+                      } else if (e.code == 'wrong-password') {
+                        print('Wrong password provided for that user.');
+                      }
+                    }
+
                     Navigator.of(context).pushReplacementNamed("/Home");
                   },
                   style: ButtonStyle(
