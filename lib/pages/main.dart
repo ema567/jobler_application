@@ -71,7 +71,7 @@ class _Joblerstate extends State<Jobler> {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-          home: FirebaseAuth.instance.currentUser == null ? Login() : Home(), 
+          home:FirebaseAuth.instance.currentUser == null ? Login() : Home(), 
         //  initialRoute: "/",
         routes: {
           "/": (context) => const First(),
