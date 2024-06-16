@@ -28,7 +28,7 @@ class _LoginState extends State<Login> {
             Column(
               children: [
                 SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
                 Text(
                   "Login",
@@ -52,7 +52,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 SizedBox(
-                  height: 15,
+                  height: 10,
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -102,7 +102,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 15,
                 ),
                 ElevatedButton(
                   onPressed: () async {
