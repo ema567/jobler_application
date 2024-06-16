@@ -37,7 +37,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Platform.isAndroid
       ? await Firebase.initializeApp(
-          options: FirebaseOptions(         
+          options: FirebaseOptions(
               apiKey: 'AIzaSyBiCLXcs05m1965pmZnv2acGqeV47NUMc4',
               appId: '1:627087928722:android:63417a7220f10fc71f254b',
               messagingSenderId: '627087928722',
@@ -45,7 +45,6 @@ void main() async {
       : await Firebase.initializeApp();
   runApp(const Jobler());
 }
-
 
 class Jobler extends StatefulWidget {
   const Jobler({super.key});
@@ -71,8 +70,8 @@ class _Joblerstate extends State<Jobler> {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-          // home:FirebaseAuth.instance.currentUser == null ? Login() : Home(), 
-         initialRoute: "/",
+        // home:FirebaseAuth.instance.currentUser == null ? Login() : Home(),
+        initialRoute: "/",
         routes: {
           "/": (context) => const First(),
           "/Hello": (context) => const Hello(),
