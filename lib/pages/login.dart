@@ -110,9 +110,7 @@ class _LoginState extends State<Login> {
                       try {
                         final credential = await FirebaseAuth.instance
                             .signInWithEmailAndPassword(
-                                email: email.text,
-                               password: password.text
-                               );
+                                email: email.text, password: password.text);
                         Navigator.of(context).pushReplacementNamed("/Home");
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'user-not-found') {
@@ -123,8 +121,6 @@ class _LoginState extends State<Login> {
                             animType: AnimType.rightSlide,
                             title: 'Error',
                             desc: 'No user found for that email.',
-                            btnCancelOnPress: () {},
-                            btnOkOnPress: () {},
                           ).show();
                         } else if (e.code == 'wrong-password') {
                           print('Wrong password provided for that user.');
@@ -134,11 +130,9 @@ class _LoginState extends State<Login> {
                             animType: AnimType.rightSlide,
                             title: 'Error',
                             desc: 'Wrong password provided for that user.',
-                            btnCancelOnPress: () {},
-                            btnOkOnPress: () {},
                           ).show();
                         }
-                      } 
+                      }
                     },
                     style: ButtonStyle(
                       backgroundColor:
