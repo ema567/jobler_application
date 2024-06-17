@@ -106,23 +106,7 @@ class _LoginState extends State<Login> {
                     height: 20,
                   ),
                   ElevatedButton(
-                    onPressed: () async {
-                      try {
-                        final credential = await FirebaseAuth.instance
-                            .signInWithEmailAndPassword(
-                                email: email.text, password: password.text);
-                        Navigator.of(context).pushReplacementNamed("/Home");
-                      } on FirebaseAuthException catch (e) {
-                        setState(() {
-                          if (e.code == 'user-not-found') {
-                            _showErrorDialog('No user found for that email.');
-                          } else if (e.code == 'wrong-password') {
-                            _showErrorDialog(
-                                'Wrong password provided for that user.');
-                          }
-                        });
-                      }
-                    },
+                    onPressed: () {},
                     style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all(Colors.deepPurple[300]),
@@ -179,14 +163,5 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
-  }
-  void _showErrorDialog(String message) {
-    AwesomeDialog(
-      context: context,
-      dialogType: DialogType.error,
-      animType: AnimType.rightSlide,
-      title: 'Error',
-      desc: message,
-    ).show();
   }
 }
