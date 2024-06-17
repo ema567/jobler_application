@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_print, unused_local_variable, use_build_context_synchronously, non_constant_identifier_names, prefer_final_fields, unused_field, unused_element, library_private_types_in_public_api, use_key_in_widget_constructors, avoid_single_cascade_in_expression_statements, await_only_futures
+// ignore_for_file: prefer_const_constructors, avoid_print, unused_local_variable, use_build_context_synchronously, non_constant_identifier_names, prefer_final_fields, unused_field, unused_element, library_private_types_in_public_api, use_key_in_widget_constructors, avoid_single_cascade_in_expression_statements, await_only_futures, unnecessary_null_comparison
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -331,10 +331,10 @@ class _SignupState extends State<Signup> {
                             password: password.text,
                           );
                           Navigator.of(context).pushReplacementNamed("/Cv");
-                        } on FirebaseAuthException catch (e) {
+                        } on FirebaseAuthException catch (e) { 
                           if (e.code == 'weak-password') {
                             print('The password provided is too weak.');
-                            await AwesomeDialog(
+                             AwesomeDialog(
                               context: context,
                               dialogType: DialogType.error,
                               animType: AnimType.rightSlide,
@@ -343,10 +343,10 @@ class _SignupState extends State<Signup> {
                               btnCancelOnPress: () {},
                               btnOkOnPress: () {},
                             )
-                              ..show();
+                               .show();
                           } else if (e.code == 'email-already-in-use') {
                             print('The account already exists for that email.');
-                            await AwesomeDialog(
+                            AwesomeDialog(
                               context: context,
                               dialogType: DialogType.error,
                               animType: AnimType.rightSlide,
@@ -356,7 +356,7 @@ class _SignupState extends State<Signup> {
                               btnCancelOnPress: () {},
                               btnOkOnPress: () {},
                             )
-                              ..show();
+                               .show();
                           }
                         } catch (e) {
                           print(e);

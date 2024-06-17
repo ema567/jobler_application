@@ -115,7 +115,7 @@ class _LoginState extends State<Login> {
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'user-not-found') {
                           print('No user found for that email.');
-                          await AwesomeDialog(
+                           AwesomeDialog(
                             context: context,
                             dialogType: DialogType.error,
                             animType: AnimType.rightSlide,
@@ -124,10 +124,10 @@ class _LoginState extends State<Login> {
                             btnCancelOnPress: () {},
                             btnOkOnPress: () {},
                           )
-                            ..show();
+                            .show();
                         } else if (e.code == 'wrong-password') {
                           print('Wrong password provided for that user.');
-                          await AwesomeDialog(
+                           AwesomeDialog(
                             context: context,
                             dialogType: DialogType.error,
                             animType: AnimType.rightSlide,
@@ -136,7 +136,7 @@ class _LoginState extends State<Login> {
                             btnCancelOnPress: () {},
                             btnOkOnPress: () {},
                           )
-                            ..show();
+                            .show();
                         }
                       }
                     },
