@@ -16,7 +16,7 @@ import 'package:jobler_application/pages/hello.dart';
 import 'package:jobler_application/pages/home.dart';
 import 'package:jobler_application/pages/job.dart';
 import 'package:jobler_application/pages/jobadvertisement.dart';
-import 'package:jobler_application/pages/login.dart';
+ import 'package:jobler_application/pages/login.dart';
 import 'package:jobler_application/pages/message.dart';
 import 'package:jobler_application/pages/mobileapplication.dart';
 import 'package:jobler_application/pages/offlinepage.dart';
@@ -25,7 +25,7 @@ import 'package:jobler_application/pages/postjobscreen.dart';
 import 'package:jobler_application/pages/posttrainingscreen.dart';
 import 'package:jobler_application/pages/profile.dart';
 import 'package:jobler_application/pages/programming.dart';
-import 'package:jobler_application/pages/signup.dart';
+ import 'package:jobler_application/pages/signup.dart';
 import 'package:jobler_application/pages/trainingadvertisement.dart';
 import 'package:jobler_application/pages/uiquestion.dart';
 import 'package:jobler_application/pages/uiuxcourse.dart';
@@ -75,8 +75,8 @@ class _Joblerstate extends State<Jobler> {
         routes: {
           "/": (context) => const First(),
           "/Hello": (context) => const Hello(),
-          "/Signup": (context) => const Signup(),
-          "/Login": (context) => const Login(),
+           "/Signup": (context) => const Signup(),
+           "/Login": (context) => const Login(),
           "/Cv": (context) => const Cv(),
           "/Home": (context) => const Home(),
           "/Profile": (context) => const Profile(),
