@@ -23,173 +23,172 @@ class _LoginState extends State<Login> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: SingleChildScrollView(child: 
-        
-        Stack(
-          children: [
-            Column(
-              children: [
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "Login",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    height: 1,
-                    letterSpacing: 1,
+        body: SingleChildScrollView(
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  SizedBox(
+                    height: 10,
                   ),
-                ),
-                Image.asset("assets/images/login.png"),
-                Text(
-                  "login to your account",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    height: 1,
-                    wordSpacing: 1,
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.deepPurple[50],
-                    borderRadius: BorderRadius.circular(66),
-                  ),
-                  width: 266,
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: TextField(
-                    controller: email,
-                    decoration: InputDecoration(
-                        icon: Icon(
-                          Icons.email_outlined,
-                          color: Colors.deepPurple[300],
-                        ),
-                        hintText: "Your Email :",
-                        hintStyle: TextStyle(color: Colors.black),
-                        border: InputBorder.none),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.deepPurple[50],
-                    borderRadius: BorderRadius.circular(66),
-                  ),
-                  width: 266,
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: TextField(
-                    controller: password,
-                    obscureText: false,
-                    decoration: InputDecoration(
-                        suffix: Icon(
-                          Icons.visibility,
-                          color: Colors.deepPurple[300],
-                        ),
-                        icon: Icon(
-                          Icons.lock,
-                          color: Colors.deepPurple[300],
-                          size: 19,
-                        ),
-                        hintText: "Password :",
-                        hintStyle: TextStyle(color: Colors.black),
-                        border: InputBorder.none),
-                  ),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    try {
-                      final credential = await FirebaseAuth.instance
-                          .signInWithEmailAndPassword(
-                              email: email.text, password: password.text);
-                      Navigator.of(context).pushReplacementNamed("/Home");
-                    } on FirebaseAuthException catch (e) {
-                      if (e.code == 'user-not-found') {
-                        print('No user found for that email.');
-                        AwesomeDialog(
-                          context: context,
-                          dialogType: DialogType.error,
-                          animType: AnimType.rightSlide,
-                          title: 'Error',
-                          desc: 'No user found for that email.',
-                        ).show();
-                      } else if (e.code == 'wrong-password') {
-                        print('Wrong password provided for that user.');
-                        AwesomeDialog(
-                          context: context,
-                          dialogType: DialogType.error,
-                          animType: AnimType.rightSlide,
-                          title: 'Error',
-                          desc: 'Wrong password provided for that user.',
-                        ).show();
-                      }
-                    }
-                  },
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(Colors.deepPurple[300]),
-                    padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(horizontal: 106, vertical: 10)),
-                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(27))),
-                  ),
-                  child: Text(
+                  Text(
                     "Login",
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.black,
                       fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      height: 1,
+                      letterSpacing: 1,
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 35,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Don't have an accout? "),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, "Signup");
-                      },
-                      child: Text(
-                        "Sign up",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                  Image.asset("assets/images/login.png"),
+                  Text(
+                    "login to your account",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      height: 1,
+                      wordSpacing: 1,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.deepPurple[50],
+                      borderRadius: BorderRadius.circular(66),
+                    ),
+                    width: 266,
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: TextField(
+                      controller: email,
+                      decoration: InputDecoration(
+                          icon: Icon(
+                            Icons.email_outlined,
+                            color: Colors.deepPurple[300],
+                          ),
+                          hintText: "Your Email :",
+                          hintStyle: TextStyle(color: Colors.black),
+                          border: InputBorder.none),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.deepPurple[50],
+                      borderRadius: BorderRadius.circular(66),
+                    ),
+                    width: 266,
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: TextField(
+                      controller: password,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                          suffix: Icon(
+                            Icons.visibility,
+                            color: Colors.deepPurple[300],
+                          ),
+                          icon: Icon(
+                            Icons.lock,
+                            color: Colors.deepPurple[300],
+                            size: 19,
+                          ),
+                          hintText: "Password :",
+                          hintStyle: TextStyle(color: Colors.black),
+                          border: InputBorder.none),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      try {
+                        final credential = await FirebaseAuth.instance
+                            .signInWithEmailAndPassword(
+                                email: email.text, password: password.text);
+                        Navigator.of(context).pushReplacementNamed("/Home");
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'user-not-found') {
+                          print('No user found for that email.');
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.error,
+                            animType: AnimType.rightSlide,
+                            title: 'Error',
+                            desc: 'No user found for that email.',
+                          ).show();
+                        } else if (e.code == 'wrong-password') {
+                          print('Wrong password provided for that user.');
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.error,
+                            animType: AnimType.rightSlide,
+                            title: 'Error',
+                            desc: 'Wrong password provided for that user.',
+                          ).show();
+                        }
+                      }
+                    },
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.deepPurple[300]),
+                      padding: MaterialStateProperty.all(
+                          EdgeInsets.symmetric(horizontal: 106, vertical: 10)),
+                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(27))),
+                    ),
+                    child: Text(
+                      "Login",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
                       ),
                     ),
-                  ],
-                )
-              ],
-            ),
-            Positioned(
-              left: 0,
-              child: Image.asset(
-                "assets/images/main_top.png",
-                width: 111,
+                  ),
+                  SizedBox(
+                    height: 35,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Don't have an accout? "),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, "Signup");
+                        },
+                        child: Text(
+                          "Sign up",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
               ),
-            ),
-            // Positioned(
-            //   bottom: 0,
-            //   right: 0,
-            //   child: Image.asset(
-            //     "assets/images/login_bottom.png",
-            //   width: 111,
-            //   ),
-            // ),
-          ],
+              Positioned(
+                left: 0,
+                child: Image.asset(
+                  "assets/images/main_top.png",
+                  width: 111,
+                ),
+              ),
+              // Positioned(
+              //   bottom: 0,
+              //   right: 0,
+              //   child: Image.asset(
+              //     "assets/images/login_bottom.png",
+              //   width: 111,
+              //   ),
+              // ),
+            ],
+          ),
         ),
       ),
-    ),
     );
   }
 }
