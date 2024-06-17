@@ -108,37 +108,38 @@ class _LoginState extends State<Login> {
                   ElevatedButton(
                     onPressed: () async {
                       try {
-                        final credential = await FirebaseAuth.instance
-                            .signInWithEmailAndPassword(
-                                email: email.text, password: password.text);
-                        Navigator.of(context).pushReplacementNamed("/Home");
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == 'user-not-found') {
-                          print('No user found for that email.');
-                          AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.error,
-                            animType: AnimType.rightSlide,
-                            title: 'Error',
-                            desc: 'No user found for that email.',
-                            btnCancelOnPress: () {},
-                            btnOkOnPress: () {},
-                          ).show();
-                        } else if (e.code == 'wrong-password') {
-                          print('Wrong password provided for that user.');
-                          AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.error,
-                            animType: AnimType.rightSlide,
-                            title: 'Error',
-                            desc: 'Wrong password provided for that user.',
-                            btnCancelOnPress: () {},
-                            btnOkOnPress: () {},
-                          ).show();
-                        }
-                      } catch (e) {
-                        print(e);
-                      }
+                          final credential = await FirebaseAuth.instance
+                              .createUserWithEmailAndPassword(
+                            email: email.text,
+                            password: password.text,
+                          );
+                          Navigator.of(context).pushReplacementNamed("/Home");
+                        } on FirebaseAuthException catch (e) {
+                          if (e.code ==  'user-not-found') {
+                            print('No user found for that email.');
+                            AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.error,
+                              animType: AnimType.rightSlide,
+                              title: 'Error',
+                              desc: 'No user found for that email.',
+                              btnCancelOnPress: () {},
+                              btnOkOnPress: () {},
+                            ).show();
+                          } else if (e.code == 'wrong-password') {
+                            print('Wrong password provided for that user.');
+                            AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.error,
+                              animType: AnimType.rightSlide,
+                              title: 'Error',
+                              desc:
+                                  'Wrong password provided for that user.',
+                              btnCancelOnPress: () {},
+                              btnOkOnPress: () {},
+                            ).show();
+                          }
+                        } 
                     },
                     style: ButtonStyle(
                       backgroundColor:
