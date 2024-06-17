@@ -334,7 +334,7 @@ class _SignupState extends State<Signup> {
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {
                             print('The password provided is too weak.');
-                          await  AwesomeDialog(
+                            await AwesomeDialog(
                               context: context,
                               dialogType: DialogType.error,
                               animType: AnimType.rightSlide,
@@ -342,10 +342,11 @@ class _SignupState extends State<Signup> {
                               desc: 'The password provided is too weak.',
                               btnCancelOnPress: () {},
                               btnOkOnPress: () {},
-                            )..show();
+                            )
+                              ..show();
                           } else if (e.code == 'email-already-in-use') {
                             print('The account already exists for that email.');
-                           await AwesomeDialog(
+                            await AwesomeDialog(
                               context: context,
                               dialogType: DialogType.error,
                               animType: AnimType.rightSlide,
@@ -354,7 +355,8 @@ class _SignupState extends State<Signup> {
                                   'The account already exists for that email.',
                               btnCancelOnPress: () {},
                               btnOkOnPress: () {},
-                            )..show();
+                            )
+                              ..show();
                           }
                         } catch (e) {
                           print(e);
