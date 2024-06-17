@@ -113,25 +113,14 @@ class _LoginState extends State<Login> {
                                 email: email.text, password: password.text);
                         Navigator.of(context).pushReplacementNamed("/Home");
                       } on FirebaseAuthException catch (e) {
-                        if (e.code == 'user-not-found') {
-                          print('No user found for that email.');
-                          AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.error,
-                            animType: AnimType.rightSlide,
-                            title: 'Error',
-                            desc: 'No user found for that email.',
-                          ).show();
-                        } else if (e.code == 'wrong-password') {
-                          print('Wrong password provided for that user.');
-                          AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.error,
-                            animType: AnimType.rightSlide,
-                            title: 'Error',
-                            desc: 'Wrong password provided for that user.',
-                          ).show();
-                        }
+                        setState(() {
+                          if (e.code == 'user-not-found') {
+                            _showErrorDialog('No user found for that email.');
+                          } else if (e.code == 'wrong-password') {
+                            _showErrorDialog(
+                                'Wrong password provided for that user.');
+                          }
+                        });
                       }
                     },
                     style: ButtonStyle(
@@ -190,5 +179,14 @@ class _LoginState extends State<Login> {
         ),
       ),
     );
+  }
+  void _showErrorDialog(String message) {
+    AwesomeDialog(
+      context: context,
+      dialogType: DialogType.error,
+      animType: AnimType.rightSlide,
+      title: 'Error',
+      desc: message,
+    ).show();
   }
 }
