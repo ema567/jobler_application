@@ -121,6 +121,8 @@ class _LoginState extends State<Login> {
                             animType: AnimType.rightSlide,
                             title: 'Error',
                             desc: 'No user found for that email.',
+                            btnCancelOnPress: () {},
+                            btnOkOnPress: () {},
                           )..show();
                         } else if (e.code == 'wrong-password') {
                           print('Wrong password provided for that user.');
@@ -130,6 +132,8 @@ class _LoginState extends State<Login> {
                             animType: AnimType.rightSlide,
                             title: 'Error',
                             desc: 'Wrong password provided for that user.',
+                            btnCancelOnPress: () {},
+                            btnOkOnPress: () {},
                           )..show();
                         }
                       }

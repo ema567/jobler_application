@@ -334,22 +334,27 @@ class _SignupState extends State<Signup> {
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {
                             print('The password provided is too weak.');
-                             AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.error,
-                            animType: AnimType.rightSlide,
-                            title: 'Error',
-                            desc: 'The password provided is too weak.',
-                          )..show();
+                            AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.error,
+                              animType: AnimType.rightSlide,
+                              title: 'Error',
+                              desc: 'The password provided is too weak.',
+                              btnCancelOnPress: () {},
+                              btnOkOnPress: () {},
+                            )..show();
                           } else if (e.code == 'email-already-in-use') {
                             print('The account already exists for that email.');
-                           AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.error,
-                            animType: AnimType.rightSlide,
-                            title: 'Error',
-                            desc: 'The account already exists for that email.',
-                          )..show();
+                            AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.error,
+                              animType: AnimType.rightSlide,
+                              title: 'Error',
+                              desc:
+                                  'The account already exists for that email.',
+                              btnCancelOnPress: () {},
+                              btnOkOnPress: () {},
+                            )..show();
                           }
                         } catch (e) {
                           print(e);
