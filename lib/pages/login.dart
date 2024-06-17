@@ -23,12 +23,14 @@ class _LoginState extends State<Login> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: Stack(
+        body: SingleChildScrollView(child: 
+        
+        Stack(
           children: [
             Column(
               children: [
                 SizedBox(
-                  height: 5,
+                  height: 10,
                 ),
                 Text(
                   "Login",
@@ -52,7 +54,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 15,
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -102,7 +104,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 SizedBox(
-                  height: 15,
+                  height: 20,
                 ),
                 ElevatedButton(
                   onPressed: () async {
@@ -110,7 +112,7 @@ class _LoginState extends State<Login> {
                       final credential = await FirebaseAuth.instance
                           .signInWithEmailAndPassword(
                               email: email.text, password: password.text);
-                       Navigator.of(context).pushReplacementNamed("/Home");
+                      Navigator.of(context).pushReplacementNamed("/Home");
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'user-not-found') {
                         print('No user found for that email.');
@@ -120,9 +122,7 @@ class _LoginState extends State<Login> {
                           animType: AnimType.rightSlide,
                           title: 'Error',
                           desc: 'No user found for that email.',
-                          btnCancelOnPress: () {},
-                          btnOkOnPress: () {},
-                        )..show();
+                        ).show();
                       } else if (e.code == 'wrong-password') {
                         print('Wrong password provided for that user.');
                         AwesomeDialog(
@@ -131,9 +131,7 @@ class _LoginState extends State<Login> {
                           animType: AnimType.rightSlide,
                           title: 'Error',
                           desc: 'Wrong password provided for that user.',
-                          btnCancelOnPress: () {},
-                          btnOkOnPress: () {},
-                        )..show();
+                        ).show();
                       }
                     }
                   },
@@ -180,17 +178,18 @@ class _LoginState extends State<Login> {
                 width: 111,
               ),
             ),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: Image.asset(
-                "assets/images/login_bottom.png",
-                width: 111,
-              ),
-            ),
+            // Positioned(
+            //   bottom: 0,
+            //   right: 0,
+            //   child: Image.asset(
+            //     "assets/images/login_bottom.png",
+            //   width: 111,
+            //   ),
+            // ),
           ],
         ),
       ),
+    ),
     );
   }
 }
