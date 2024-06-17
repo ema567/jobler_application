@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, sort_child_properties_last, unnecessary_import, avoid_web_libraries_in_flutter,, avoid_single_cascade_in_expression_statements, use_build_context_synchronously, avoid_print, unused_local_variable
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last, unnecessary_import, avoid_web_libraries_in_flutter,, avoid_single_cascade_in_expression_statements, use_build_context_synchronously, avoid_print, unused_local_variable, await_only_futures
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -115,7 +115,7 @@ class _LoginState extends State<Login> {
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'user-not-found') {
                           print('No user found for that email.');
-                          AwesomeDialog(
+                         await AwesomeDialog(
                             context: context,
                             dialogType: DialogType.error,
                             animType: AnimType.rightSlide,
@@ -126,7 +126,7 @@ class _LoginState extends State<Login> {
                           )..show();
                         } else if (e.code == 'wrong-password') {
                           print('Wrong password provided for that user.');
-                          AwesomeDialog(
+                         await AwesomeDialog(
                             context: context,
                             dialogType: DialogType.error,
                             animType: AnimType.rightSlide,
