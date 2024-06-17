@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, sort_child_properties_last, unnecessary_import, avoid_web_libraries_in_flutter,, avoid_single_cascade_in_expression_statements, use_build_context_synchronously, avoid_print, unused_local_variable, await_only_futures
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last, unnecessary_import, avoid_web_libraries_in_flutter,, avoid_single_cascade_in_expression_statements, use_build_context_synchronously, avoid_print, unused_local_variable, await_only_futures, unused_field, prefer_const_literals_to_create_immutables, avoid_returning_null_for_void
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -18,6 +18,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   TextEditingController password = TextEditingController();
   TextEditingController email = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -121,6 +122,8 @@ class _LoginState extends State<Login> {
                             animType: AnimType.rightSlide,
                             title: 'Error',
                             desc: 'No user found for that email.',
+                            btnCancelOnPress: () {},
+                            btnOkOnPress: () {},
                           ).show();
                         } else if (e.code == 'wrong-password') {
                           print('Wrong password provided for that user.');
@@ -130,6 +133,8 @@ class _LoginState extends State<Login> {
                             animType: AnimType.rightSlide,
                             title: 'Error',
                             desc: 'Wrong password provided for that user.',
+                            btnCancelOnPress: () {},
+                            btnOkOnPress: () {},
                           ).show();
                         }
                       }
