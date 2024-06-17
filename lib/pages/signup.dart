@@ -1,5 +1,6 @@
-// ignore_for_file: prefer_const_constructors, avoid_print, unused_local_variable, use_build_context_synchronously, non_constant_identifier_names, prefer_final_fields, unused_field, unused_element, library_private_types_in_public_api, use_key_in_widget_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print, unused_local_variable, use_build_context_synchronously, non_constant_identifier_names, prefer_final_fields, unused_field, unused_element, library_private_types_in_public_api, use_key_in_widget_constructors, avoid_single_cascade_in_expression_statements
 
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -323,24 +324,36 @@ class _SignupState extends State<Signup> {
                     ),
                     ElevatedButton(
                       onPressed: () async {
-                        
                         try {
                           final credential = await FirebaseAuth.instance
                               .createUserWithEmailAndPassword(
-                             email: email.text,
-                             password: password.text,
+                            email: email.text,
+                            password: password.text,
                           );
-
+                          Navigator.of(context).pushReplacementNamed("/Cv");
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {
                             print('The password provided is too weak.');
+                             AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.error,
+                            animType: AnimType.rightSlide,
+                            title: 'Error',
+                            desc: 'The password provided is too weak.',
+                          )..show();
                           } else if (e.code == 'email-already-in-use') {
                             print('The account already exists for that email.');
+                           AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.error,
+                            animType: AnimType.rightSlide,
+                            title: 'Error',
+                            desc: 'The account already exists for that email.',
+                          )..show();
                           }
                         } catch (e) {
                           print(e);
                         }
-                        Navigator.of(context).pushReplacementNamed("/Cv");
                       },
                       style: ButtonStyle(
                         backgroundColor:

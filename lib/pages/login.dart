@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, sort_child_properties_last, unnecessary_import, avoid_web_libraries_in_flutter, unused_import, avoid_print, unused_local_variable, use_build_context_synchronously, avoid_single_cascade_in_expression_statements
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last, unnecessary_import, avoid_web_libraries_in_flutter,, avoid_single_cascade_in_expression_statements, use_build_context_synchronously, avoid_print, unused_local_variable
 
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -106,7 +106,34 @@ class _LoginState extends State<Login> {
                     height: 20,
                   ),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      try {
+                        final credential = await FirebaseAuth.instance
+                            .signInWithEmailAndPassword(
+                                email: email.text, password: password.text);
+                        Navigator.of(context).pushReplacementNamed("/Home");
+                      } on FirebaseAuthException catch (e) {
+                        if (e.code == 'user-not-found') {
+                          print('No user found for that email.');
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.error,
+                            animType: AnimType.rightSlide,
+                            title: 'Error',
+                            desc: 'No user found for that email.',
+                          )..show();
+                        } else if (e.code == 'wrong-password') {
+                          print('Wrong password provided for that user.');
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.error,
+                            animType: AnimType.rightSlide,
+                            title: 'Error',
+                            desc: 'Wrong password provided for that user.',
+                          )..show();
+                        }
+                      }
+                    },
                     style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all(Colors.deepPurple[300]),
