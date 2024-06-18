@@ -66,7 +66,7 @@ class _LoginState extends State<Login> {
                     ),
                     width: 266,
                     padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: TextFormField(
+                    child: TextField(
                       controller: email,
                       decoration: InputDecoration(
                           icon: Icon(
@@ -94,7 +94,7 @@ class _LoginState extends State<Login> {
                     ),
                     width: 266,
                     padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: TextFormField(
+                    child: TextField(
                       controller: password,
                       obscureText: false,
                       decoration: InputDecoration(
