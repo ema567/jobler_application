@@ -157,8 +157,9 @@ class _LoginState extends State<Login> {
                       // } else {
                       //   print("Form is not valid");
                       // }
-                      ;
-                      style:
+                      
+                    },
+                    style: 
                       ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Colors.deepPurple[300]),
@@ -166,17 +167,15 @@ class _LoginState extends State<Login> {
                             horizontal: 106, vertical: 10)),
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(27))),
-                      );
-                      child:
+                      ),
+                      child: 
                       Text(
                         "Login",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 25,
                         ),
-                      );
-                    },
-                    child: null,
+                      ),
                   ),
                   SizedBox(
                     height: 35,
