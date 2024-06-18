@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, override_on_non_overriding_member, avoid_print,, non_constant_identifier_names, unused_import, duplicate_import
+// ignore_for_file: prefer_const_constructors, override_on_non_overriding_member, avoid_print,, non_constant_identifier_names, unused_import, duplicate_import, avoid_web_libraries_in_flutter
 
 import 'dart:io';
 
@@ -16,7 +16,7 @@ import 'package:jobler_application/pages/hello.dart';
 import 'package:jobler_application/pages/home.dart';
 import 'package:jobler_application/pages/job.dart';
 import 'package:jobler_application/pages/jobadvertisement.dart';
-import 'package:jobler_application/pages/login.dart';
+ import 'package:jobler_application/pages/login.dart';
 import 'package:jobler_application/pages/message.dart';
 import 'package:jobler_application/pages/mobileapplication.dart';
 import 'package:jobler_application/pages/offlinepage.dart';
