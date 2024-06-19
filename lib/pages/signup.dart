@@ -63,7 +63,7 @@ class _SignupState extends State<Signup> {
                         ),
                         width: 266,
                         padding: EdgeInsets.symmetric(horizontal: 15),
-                        child: TextField(
+                        child: TextFormField(
                           decoration: InputDecoration(
                               icon: Icon(
                                 Icons.app_registration,
@@ -72,6 +72,12 @@ class _SignupState extends State<Signup> {
                               hintText: "Full Name:",
                               hintStyle: TextStyle(color: Colors.black),
                               border: InputBorder.none),
+                               validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter your name";
+                            }
+                            return null;
+                          },
                         ),
                       ),
                       SizedBox(
