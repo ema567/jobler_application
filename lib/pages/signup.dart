@@ -357,7 +357,7 @@ class _SignupState extends State<Signup> {
                                   animType: AnimType.rightSlide,
                                   title: 'Error',
                                   desc: 'The password provided is too weak.',
-                                  btnCancelOnPress: () {},
+                                 
                                   btnOkOnPress: () {},
                                 ).show();
                               } else if (e.code == 'email-already-in-use') {
@@ -370,7 +370,7 @@ class _SignupState extends State<Signup> {
                                   title: 'Error',
                                   desc:
                                       'The account already exists for that email.',
-                                  btnCancelOnPress: () {},
+                                
                                   btnOkOnPress: () {},
                                 ).show();
                               }
