@@ -125,13 +125,23 @@ class _LoginState extends State<Login> {
                             Navigator.of(context).pushReplacementNamed("/Home");
                           } on FirebaseAuthException catch (e) {
                             String errorMessage = '';
-                           
+
                             if (e.code == 'user-not-found') {
                               errorMessage = 'No user found for that email.';
-                            } else if (e.code == 'wrong-password') {
+                            
+                                AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.error,
+                                animType: AnimType.rightSlide,
+                                title: 'Error',
+                                desc: 'the email not correct',
+                                btnOkOnPress: () {},
+                              ).show();
+                            } else if 
+                              (e.code == 'wrong-password') {
                               errorMessage =
                                   'Wrong password provided for that user.';
-                            }
+                              }
                             {
                               AwesomeDialog(
                                 context: context,
