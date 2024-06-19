@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last, dead_code
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -40,6 +41,19 @@ class Home extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
+                FirebaseAuth.instance.currentUser!.emailVerified
+                    ? Text("welcome")
+                    : MaterialButton(
+                        textColor: Colors.white,
+                        color: Colors.deepPurple[300],
+                        minWidth: 10,
+                        height: 25,
+                        onPressed: () {
+                          FirebaseAuth.instance.currentUser!
+                              .sendEmailVerification();
+                        },
+                        child: Text("please verified email"),
+                      ),
                 Center(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
