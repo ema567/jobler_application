@@ -121,7 +121,21 @@ class _LoginState extends State<Login> {
                         final credential = await FirebaseAuth.instance
                             .signInWithEmailAndPassword(
                                 email: email.text, password: password.text);
-                        Navigator.of(context).pushReplacementNamed("/Home");
+                        if (FirebaseAuth.instance.currentUser!.emailVerified) {
+                          Navigator.of(context).pushReplacementNamed("/Cv");
+                        } else {
+                          FirebaseAuth.instance.currentUser!
+                              .sendEmailVerification();
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.error,
+                            animType: AnimType.rightSlide,
+                            title: 'Error',
+                            desc:
+                                'Please go to your email and click on the email verification link to activate your account',
+                            btnOkOnPress: () {},
+                          ).show();
+                        }
                       } on FirebaseAuthException catch (e) {
                         String errorMessage = '';
 
@@ -171,45 +185,73 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                 ),
-                SizedBox(height: 25),
-                SizedBox(
-                  width: 299,
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: Divider(
-                        thickness: 0.6,
-                        color: Colors.deepPurple[300],
-                      )),
-                      Text(
-                        "OR",
+                SizedBox(height: 5),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    InkWell(
+                      onTap: () async {
+                        if (email.text == "") {
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.error,
+                            animType: AnimType.rightSlide,
+                            title: 'Error',
+                            desc:
+                                'Please write your email and then click on forgot password',
+                            btnOkOnPress: () {},
+                          ).show();
+                          return;
+                        }
+                        try {
+                          await FirebaseAuth.instance
+                              .sendPasswordResetEmail(email: email.text);                         
+                            AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.success,
+                              animType: AnimType.rightSlide,
+                              title: 'Error',
+                              desc:
+                                  'A link to reset your password has been sent to your email. Please go to your email and click on the link.',
+                              btnOkOnPress: () {},
+                            ).show();
+                          } catch(e){
+                            AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.error,
+                              animType: AnimType.rightSlide,
+                              title: 'Error',
+                              desc:
+                                  'Please make sure that the email you entered is correct and try again',
+                              btnOkOnPress: () {},
+                            ).show();
+                          }
+                        }, 
+                      child: Text(
+                        "Forgot Password?  ",
                         style: TextStyle(
                           color: Colors.deepPurple[300],
+                          fontSize: 14,
                         ),
-                      ),
-                      Expanded(
-                          child: Divider(
-                        thickness: 0.6,
-                        color: Colors.deepPurple[300],
-                      )),
-                    ],
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text("Don't have an accout? "),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, "Signup");
-                      },
-                      child: Text(
-                        "Sign up",
-                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],
                 ),
+                SizedBox(
+                  height: 15,
+                ),
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Text("Don't have an accout? "),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, "Signup");
+                    },
+                    child: Text(
+                      "Sign up",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ]),
               ]),
               Positioned(
                 left: 0,

@@ -72,7 +72,7 @@ class _SignupState extends State<Signup> {
                               hintText: "Full Name:",
                               hintStyle: TextStyle(color: Colors.black),
                               border: InputBorder.none),
-                               validator: (value) {
+                          validator: (value) {
                             if (value == null || value.isEmpty) {
                               return "Please enter your name";
                             }
@@ -353,7 +353,10 @@ class _SignupState extends State<Signup> {
                                 email: email.text,
                                 password: password.text,
                               );
-                              Navigator.of(context).pushReplacementNamed("/Cv");
+                              FirebaseAuth.instance.currentUser!
+                                  .sendEmailVerification();
+                              Navigator.of(context)
+                                  .pushReplacementNamed("/Login");
                             } on FirebaseAuthException catch (e) {
                               if (e.code == 'weak-password') {
                                 print('The password provided is too weak.');
@@ -363,7 +366,6 @@ class _SignupState extends State<Signup> {
                                   animType: AnimType.rightSlide,
                                   title: 'Error',
                                   desc: 'The password provided is too weak.',
-                                 
                                   btnOkOnPress: () {},
                                 ).show();
                               } else if (e.code == 'email-already-in-use') {
@@ -376,7 +378,6 @@ class _SignupState extends State<Signup> {
                                   title: 'Error',
                                   desc:
                                       'The account already exists for that email.',
-                                
                                   btnOkOnPress: () {},
                                 ).show();
                               }
@@ -425,7 +426,7 @@ class _SignupState extends State<Signup> {
                       ),
                     ],
                   ),
-                ),
+                )
               ],
             ),
           ),

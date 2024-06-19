@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, override_on_non_overriding_member, avoid_print,, non_constant_identifier_names, unused_import, duplicate_import, avoid_web_libraries_in_flutter
 
- import 'dart:io';
+import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -16,7 +16,7 @@ import 'package:jobler_application/pages/hello.dart';
 import 'package:jobler_application/pages/home.dart';
 import 'package:jobler_application/pages/job.dart';
 import 'package:jobler_application/pages/jobadvertisement.dart';
-   import 'package:jobler_application/pages/login.dart';
+ import 'package:jobler_application/pages/login.dart';
 import 'package:jobler_application/pages/message.dart';
 import 'package:jobler_application/pages/mobileapplication.dart';
 import 'package:jobler_application/pages/offlinepage.dart';
@@ -70,7 +70,7 @@ class _Joblerstate extends State<Jobler> {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        //  home:FirebaseAuth.instance.currentUser == null ? Login() : Home(),  
+        //  home:FirebaseAuth.instance.currentUser == null ? Login() : Home(),
         initialRoute: "/",
         routes: {
           "/": (context) => const First(),
