@@ -118,14 +118,14 @@ class _LoginState extends State<Login> {
                     ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                        try {
-                        
+                          try {
                             final credential = await FirebaseAuth.instance
                                 .signInWithEmailAndPassword(
                                     email: email.text, password: password.text);
                             Navigator.of(context).pushReplacementNamed("/Home");
                           } on FirebaseAuthException catch (e) {
                             String errorMessage = '';
+                           
                             if (e.code == 'user-not-found') {
                               errorMessage = 'No user found for that email.';
                             } else if (e.code == 'wrong-password') {
@@ -138,7 +138,7 @@ class _LoginState extends State<Login> {
                                 dialogType: DialogType.error,
                                 animType: AnimType.rightSlide,
                                 title: 'Error',
-                                desc: errorMessage,
+                                desc: 'the password not correct',
                                 btnOkOnPress: () {},
                               ).show();
                             }
@@ -148,13 +148,12 @@ class _LoginState extends State<Login> {
                         }
                       },
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            Colors.deepPurple[300]),
-                        padding: MaterialStateProperty.all(
-                            EdgeInsets.symmetric(horizontal: 106, vertical: 10)),
-                        shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(27))),
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.deepPurple[300]),
+                        padding: MaterialStateProperty.all(EdgeInsets.symmetric(
+                            horizontal: 106, vertical: 10)),
+                        shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(27))),
                       ),
                       child: Text(
                         "Login",

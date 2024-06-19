@@ -16,7 +16,7 @@ import 'package:jobler_application/pages/hello.dart';
 import 'package:jobler_application/pages/home.dart';
 import 'package:jobler_application/pages/job.dart';
 import 'package:jobler_application/pages/jobadvertisement.dart';
-  import 'package:jobler_application/pages/login.dart';
+   import 'package:jobler_application/pages/login.dart';
 import 'package:jobler_application/pages/message.dart';
 import 'package:jobler_application/pages/mobileapplication.dart';
 import 'package:jobler_application/pages/offlinepage.dart';
@@ -76,7 +76,7 @@ class _Joblerstate extends State<Jobler> {
           "/": (context) => const First(),
           "/Hello": (context) => const Hello(),
           "/Signup": (context) => const Signup(),
-          "/Login": (context) => const Login(),
+           "/Login": (context) => const Login(),
           "/Cv": (context) => const Cv(),
           "/Home": (context) => const Home(),
           "/Profile": (context) => const Profile(),
