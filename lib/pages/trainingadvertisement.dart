@@ -296,7 +296,7 @@
 //   }
 
 
-// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, avoid_print, non_constant_identifier_names
+// ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, avoid_print, non_constant_identifier_names, use_build_context_synchronously
 
 //   @override
 //   Widget buildSuggestions(BuildContext context) {
