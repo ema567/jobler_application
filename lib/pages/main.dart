@@ -48,7 +48,7 @@ void main() async {
 }
 
 class Jobler extends StatefulWidget {
-
+ 
   const Jobler({super.key});
 
   @override
@@ -56,7 +56,6 @@ class Jobler extends StatefulWidget {
 }
 
 class _Joblerstate extends State<Jobler> {
-
   @override
   void inistate() {
     FirebaseAuth.instance.authStateChanges().listen((User? User) {
@@ -74,7 +73,7 @@ class _Joblerstate extends State<Jobler> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         //  home:FirebaseAuth.instance.currentUser == null ? Login() : Home(),
-        initialRoute: "/", 
+        initialRoute: "/",
         routes: {
           "/": (context) => const First(),
           "/Hello": (context) => const Hello(),
