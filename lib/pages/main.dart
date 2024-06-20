@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, override_on_non_overriding_member, avoid_print,, non_constant_identifier_names, unused_import, duplicate_import, avoid_web_libraries_in_flutter
+// ignore_for_file: prefer_const_constructors, override_on_non_overriding_member, avoid_print,, non_constant_identifier_names, unused_import, duplicate_import, avoid_web_libraries_in_flutter, dead_code
 
 import 'dart:io';
 
@@ -16,7 +16,7 @@ import 'package:jobler_application/pages/hello.dart';
 import 'package:jobler_application/pages/home.dart';
 import 'package:jobler_application/pages/job.dart';
 import 'package:jobler_application/pages/jobadvertisement.dart';
- import 'package:jobler_application/pages/login.dart';
+import 'package:jobler_application/pages/login.dart';
 import 'package:jobler_application/pages/message.dart';
 import 'package:jobler_application/pages/mobileapplication.dart';
 import 'package:jobler_application/pages/offlinepage.dart';
@@ -43,10 +43,12 @@ void main() async {
               messagingSenderId: '627087928722',
               projectId: 'flutterjobler'))
       : await Firebase.initializeApp();
+
   runApp(const Jobler());
 }
 
 class Jobler extends StatefulWidget {
+
   const Jobler({super.key});
 
   @override
@@ -54,6 +56,7 @@ class Jobler extends StatefulWidget {
 }
 
 class _Joblerstate extends State<Jobler> {
+
   @override
   void inistate() {
     FirebaseAuth.instance.authStateChanges().listen((User? User) {
@@ -71,12 +74,12 @@ class _Joblerstate extends State<Jobler> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         //  home:FirebaseAuth.instance.currentUser == null ? Login() : Home(),
-        initialRoute: "/",
+        initialRoute: "/", 
         routes: {
           "/": (context) => const First(),
           "/Hello": (context) => const Hello(),
           "/Signup": (context) => const Signup(),
-           "/Login": (context) => const Login(),
+          "/Login": (context) => const Login(),
           "/Cv": (context) => const Cv(),
           "/Home": (context) => const Home(),
           "/Profile": (context) => const Profile(),

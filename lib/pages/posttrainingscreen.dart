@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, library_private_types_in_public_api
 
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,13 +15,14 @@ class PostTrainingScreen extends StatefulWidget {
 }
 
 class _PostTrainingScreenState extends State<PostTrainingScreen> {
-  final _formKey = GlobalKey<FormState>();
+   final _formKey = GlobalKey<FormState>();
   final _companynameController = TextEditingController();
   final _trainingTitleController = TextEditingController();
   final _trainingHoursController = TextEditingController();
   final _skillsController = TextEditingController();
   final _emailController = TextEditingController();
   final _abouttrainingController = TextEditingController();
+ 
 
   @override
   Widget build(BuildContext context) {

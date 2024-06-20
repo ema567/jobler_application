@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, library_private_types_in_public_api
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -21,6 +22,21 @@ class _PostJobScreenState extends State<PostJobScreen> {
   final _skillsController = TextEditingController();
   final _emailController = TextEditingController();
   final _aboutjobController = TextEditingController();
+
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  Future<void> addUser() {
+    return users
+        .add({
+          'companyname': _companynameController.text,
+          'title': _jobTitleController.text,
+          'hours': _jobHoursController.text,
+          'skills': _skillsController.text,
+          'email': _emailController.text,
+          'aboutjob': _aboutjobController.text,
+        })
+        .then((value) => print("User Added"))
+        .catchError((error) => print("Failed to add user: $error"));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -178,8 +194,11 @@ class _PostJobScreenState extends State<PostJobScreen> {
                         height: 20,
                       ),
                       ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
+                        onPressed: () {  
+                         addUser();
+                          if (_formKey.currentState!.validate()) 
+                         
+                          {
                             Navigator.pop(context, {
                               'companyname': _companynameController.text,
                               'title': _jobTitleController.text,

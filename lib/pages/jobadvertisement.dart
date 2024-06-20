@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously, must_be_immutable, library_private_types_in_public_api, prefer_const_literals_to_create_immutables, unused_import, prefer_final_fields, avoid_web_libraries_in_flutter, unnecessary_null_comparison, dead_code, avoid_print, avoid_types_as_parameter_names, non_constant_identifier_names
 
-import 'dart:math';
 
+
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:jobler_application/pages/postjobscreen.dart';
 
@@ -13,19 +15,42 @@ class Jobadvertisement extends StatefulWidget {
   const Jobadvertisement({super.key});
   @override
   _JobadvertisementState createState() => _JobadvertisementState();
-  
- 
 }
 
 class _JobadvertisementState extends State<Jobadvertisement> {
+
   List<Map<String, dynamic>> _postedJobs = [];
+ @override
+  void initState() {
+    super.initState();
+    _getPostedJobs();
+  }
+
+  _getPostedJobs() async {
+    final firestore = FirebaseFirestore.instance;
+    final jobsCollection = firestore.collection('jobs');
+    final querySnapshot = await jobsCollection.get();
+    setState(() {
+      _postedJobs = querySnapshot.docs.map((doc) => doc.data()).toList();
+    });
+  }
 
   void _showPostedJob(Map<String, dynamic> result) {
     setState(() {
       _postedJobs.add(result);
+      _saveJobToFirestore(result);
     });
   }
 
+  _saveJobToFirestore(Map<String, dynamic> job) async {
+    final firestore = FirebaseFirestore.instance;
+    final jobsCollection = firestore.collection('jobs');
+    await jobsCollection.add(job);
+  }
+
+
+        
+   
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,13 +63,15 @@ class _JobadvertisementState extends State<Jobadvertisement> {
           actions: [
             IconButton(
               icon: const Icon(Icons.search, color: Colors.black),
-              onPressed: ()async { final query = await showSearch<String>(
-          context: context,
-          delegate: JobadvertisementSearchDelegate(),
-        );
-        if (query!= null) {
-          print('Search query: $query');
-        }        },
+              onPressed: () async {
+                final query = await showSearch<String>(
+                  context: context,
+                  delegate: JobadvertisementSearchDelegate(),
+                );
+                if (query != null) {
+                  print('Search query: $query');
+                }
+              },
             ),
           ],
         ),
@@ -103,104 +130,106 @@ class _JobadvertisementState extends State<Jobadvertisement> {
                             itemCount: _postedJobs.length,
                             itemBuilder: (context, index) {
                               return Padding(
-                                padding: const EdgeInsets.only(left: 30.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Row(children: [
-                                      Icon(Icons.note_alt_outlined),
-                                      Text(
-                                        _postedJobs[index]
-                                                .containsKey('companyname')
-                                            ? "${_postedJobs[index]['companyname']}"
-                                            : "Company name not provided",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.w500,
-                                          height: 1,
-                                          letterSpacing: 1,
-                                        ),
-                                      ),
-                                    ]),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Row(children: [
-                                      Icon(Icons.work_rounded),
-                                      Text(
-                                        "${_postedJobs[index]['title']}",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 15,
-                                          fontWeight: FontWeight.w900,
-                                          height: 1,
-                                          letterSpacing: 1,
-                                        ),
-                                      ),
-                                    ]),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Row(children: [
-                                      Icon(Icons.timer),
-                                      Text("${_postedJobs[index]['hours']}"),
-                                    ]),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Row(children: [
-                                      Icon(Icons.grading_rounded),
-                                      Text("${_postedJobs[index]['skills']}"),
-                                    ]),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Row(children: [
-                                      Icon(Icons.highlight_outlined),
-                                      Text(
-                                        _postedJobs[index]
-                                                .containsKey('aboutjob')
-                                            ? "${_postedJobs[index]['aboutjob']}"
-                                            : "about job not provided",
-                                      ),
-                                    ]),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    Text(
-                                      "To apply on this job send your CV to:",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w500,
-                                        height: 1,
-                                        letterSpacing: 1,
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 3,
-                                    ),
-                                    Row(
+                                  padding: const EdgeInsets.only(left: 30.0),
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Icon(Icons.email_outlined),
-                                        Text("${_postedJobs[index]['email']}"),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 20,
-                                    ),
-                                  ],
-                                ),
-                              );
+                                        SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(children: [
+                                          Icon(Icons.note_alt_outlined),
+                                          Text(
+                                            _postedJobs[index]
+                                                    .containsKey('companyname')
+                                                ? "${_postedJobs[index]['companyname']}"
+                                                : "Company name not provided",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w500,
+                                              height: 1,
+                                              letterSpacing: 1,
+                                            ),
+                                          ),
+                                        ]),
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        Row(children: [
+                                          Icon(Icons.work_rounded),
+                                          Text(
+                                            "${_postedJobs[index]['title']}",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w900,
+                                              height: 1,
+                                              letterSpacing: 1,
+                                            ),
+                                          ),
+                                        ]),
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        Row(children: [
+                                          Icon(Icons.timer),
+                                          Text(
+                                              "${_postedJobs[index]['hours']}"),
+                                        ]),
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        Row(children: [
+                                          Icon(Icons.grading_rounded),
+                                          Text(
+                                              "${_postedJobs[index]['skills']}"),
+                                        ]),
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        Row(children: [
+                                          Icon(Icons.highlight_outlined),
+                                          Text(
+                                            _postedJobs[index]
+                                                    .containsKey('aboutjob')
+                                                ? "${_postedJobs[index]['aboutjob']}"
+                                                : "about job not provided",
+                                          ),
+                                        ]),
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        Text(
+                                          "To apply on this job send your CV to:",
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w500,
+                                            height: 1,
+                                            letterSpacing: 1,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 3,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Icon(Icons.email_outlined),
+                                            Text(
+                                                "${_postedJobs[index]['email']}"),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                      ]));
                             })
                         : Text("No job posted"),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -242,9 +271,8 @@ class JobadvertisementSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    final results = Jobadvertisement
-        .where((Jobadvertisement) => Jobadvertisement.toLowerCase().contains(query.toLowerCase()))
-        .toList();
+    final results = Jobadvertisement.where((Jobadvertisement) =>
+        Jobadvertisement.toLowerCase().contains(query.toLowerCase())).toList();
     return Container(
       color: Colors.white,
       child: ListView.builder(
@@ -270,9 +298,8 @@ class JobadvertisementSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final suggestions = Jobadvertisement
-        .where((Jobadvertisement) => Jobadvertisement.toLowerCase().contains(query.toLowerCase()))
-        .toList();
+    final suggestions = Jobadvertisement.where((Jobadvertisement) =>
+        Jobadvertisement.toLowerCase().contains(query.toLowerCase())).toList();
     return Container(
       color: Colors.white,
       child: ListView.builder(
@@ -296,6 +323,3 @@ class JobadvertisementSearchDelegate extends SearchDelegate<String> {
     );
   }
 }
-
-
- 

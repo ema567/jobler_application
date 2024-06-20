@@ -2,6 +2,7 @@
 
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:jobler_application/pages/posttrainingscreen.dart';
 
@@ -17,12 +18,34 @@ class Trainingadvertisement extends StatefulWidget {
 
 class _TrainingadvertisementState extends State<Trainingadvertisement> {
   List<Map<String, dynamic>> _postedTrainings = [];
+@override
+void initState() {
+  super.initState();
+  _getPostedTrainings();
+}
 
-  void _showPostedTraining(Map<String, dynamic> result) {
-    setState(() {
-      _postedTrainings.add(result);
-    });
-  }
+_getPostedTrainings() async {
+  final firestore = FirebaseFirestore.instance;
+  final trainingsCollection = firestore.collection('trainings');
+  final querySnapshot = await trainingsCollection.get();
+  setState(() {
+    _postedTrainings = querySnapshot.docs.map((doc) => doc.data()).toList();
+  });
+}
+
+void _showPostedTraining(Map<String, dynamic> result) {
+  setState(() {
+    _postedTrainings.add(result);
+    _saveTrainingToFirestore(result);
+  });
+}
+
+_saveTrainingToFirestore(Map<String, dynamic> training) async {
+  final firestore = FirebaseFirestore.instance;
+  final trainingsCollection = firestore.collection('trainings');
+  await trainingsCollection.add(training);
+}
+ 
 
   @override
   Widget build(BuildContext context) {

@@ -1,13 +1,41 @@
-// ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last, avoid_print
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(const Message());
 }
 
-class Message extends StatelessWidget {
+class Message extends StatefulWidget {
   const Message({super.key});
+
+  @override
+  State<Message> createState() => _MessageState();
+}
+
+class _MessageState extends State<Message> {
+  final _auth = FirebaseAuth.instance;
+  late User signedInUser;
+  
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUser();
+  }
+
+  void getCurrentUser() {
+    try {
+      final user = _auth.currentUser;
+      if (user != null) {
+        signedInUser = user;
+        print(signedInUser.email);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
