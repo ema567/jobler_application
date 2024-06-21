@@ -20,6 +20,13 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  Map<String, dynamic>? _userData;
+   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _userData = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+  }
+
   File? _image;
 
   final ImagePicker _picker = ImagePicker();
@@ -42,6 +49,17 @@ class _ProfileState extends State<Profile> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.skip_next_outlined, color: Colors.black),
+              onPressed: () {
+                Navigator.pushNamed(context, '/Cv');
+              },
+            ),
+       ],
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -60,15 +78,19 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               const SizedBox(height: 20),
-              itemProfile('Name', 'patricia manasa', CupertinoIcons.person),
+              // itemProfile('Name', 'patricia manasa', CupertinoIcons.person),
+               itemProfile('Name', _userData?['name'] ?? '', CupertinoIcons.person),
               const SizedBox(height: 10),
-              itemProfile('Phone', '01070858016', CupertinoIcons.phone),
+              // itemProfile('Phone', '01070858016', CupertinoIcons.phone),
+               itemProfile('Phone', _userData?['phone'] ?? '', CupertinoIcons.phone),
               const SizedBox(height: 10),
-              itemProfile('Address', 'Residential Area /Governorate/ Country',
-                  CupertinoIcons.location),
+              // itemProfile('Address', 'Residential Area /Governorate/ Country',
+              //     CupertinoIcons.location),
+              itemProfile('Address', _userData?['address'] ?? '', CupertinoIcons.location),
               const SizedBox(height: 10),
-              itemProfile(
-                  'Email', 'kkjdshfjfbd@gmail.com', CupertinoIcons.mail),
+              // itemProfile(
+              //     'Email', 'kkjdshfjfbd@gmail.com', CupertinoIcons.mail),
+              itemProfile('Email', _userData?['email'] ?? '', CupertinoIcons.mail),
               const SizedBox(
                 height: 10,
               ),

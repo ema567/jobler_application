@@ -19,6 +19,9 @@ class _SignupState extends State<Signup> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController password = TextEditingController();
   TextEditingController email = TextEditingController();
+  TextEditingController name = TextEditingController();
+  TextEditingController phone = TextEditingController();
+  TextEditingController address = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +67,7 @@ class _SignupState extends State<Signup> {
                         width: 266,
                         padding: EdgeInsets.symmetric(horizontal: 15),
                         child: TextFormField(
+                          controller: name,
                           decoration: InputDecoration(
                               icon: Icon(
                                 Icons.app_registration,
@@ -152,7 +156,8 @@ class _SignupState extends State<Signup> {
                         ),
                         width: 266,
                         padding: EdgeInsets.symmetric(horizontal: 15),
-                        child: TextField(
+                        child: TextFormField(
+                          controller: phone,
                           decoration: InputDecoration(
                               icon: Icon(
                                 Icons.phone,
@@ -174,7 +179,8 @@ class _SignupState extends State<Signup> {
                         ),
                         width: 266,
                         padding: EdgeInsets.symmetric(horizontal: 15),
-                        child: TextField(
+                        child: TextFormField(
+                          controller: address,
                           decoration: InputDecoration(
                               icon: Icon(
                                 Icons.location_city,
@@ -353,11 +359,22 @@ class _SignupState extends State<Signup> {
                                 email: email.text,
                                 password: password.text,
                               );
-                              FirebaseAuth.instance.currentUser!
-                                  .sendEmailVerification();
-                              Navigator.of(context)
-                                  .pushReplacementNamed("/Login");
-                            } on FirebaseAuthException catch (e) {
+                             
+                                FirebaseAuth.instance.currentUser!
+                                    .sendEmailVerification();
+                            
+                                Map<String, dynamic> userData = {
+                                  'name': name.text,
+                                  'phone': phone.text,
+                                  'address': address.text,
+                                  'email': email.text,
+                                };
+                                Navigator.of(context).pushReplacementNamed(
+                                  "/Profile",
+                                  arguments: userData,
+                                );
+                              }
+                             on FirebaseAuthException catch (e) {
                               if (e.code == 'weak-password') {
                                 print('The password provided is too weak.');
                                 AwesomeDialog(

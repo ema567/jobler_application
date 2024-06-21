@@ -134,7 +134,7 @@ class _LoginState extends State<Login> {
                               if (FirebaseAuth
                                   .instance.currentUser!.emailVerified) {
                                 Navigator.of(context)
-                                    .pushReplacementNamed("/Cv");
+                                    .pushReplacementNamed("/Home");
                               } else {
                                 FirebaseAuth.instance.currentUser!
                                     .sendEmailVerification();
@@ -165,8 +165,7 @@ class _LoginState extends State<Login> {
                               } else if (e.code == 'wrong-password') {
                                 errorMessage =
                                     'Wrong password provided for that user.';
-                              }
-                              {
+
                                 AwesomeDialog(
                                   context: context,
                                   dialogType: DialogType.error,
