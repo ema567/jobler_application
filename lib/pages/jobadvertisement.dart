@@ -1,7 +1,5 @@
 // // ignore_for_file: prefer_const_constructors, use_build_context_synchronously, must_be_immutable, library_private_types_in_public_api, prefer_const_literals_to_create_immutables, unused_import, prefer_final_fields, avoid_web_libraries_in_flutter, unnecessary_null_comparison, dead_code, avoid_print, avoid_types_as_parameter_names, non_constant_identifier_names
 
-
-
 // import 'package:awesome_dialog/awesome_dialog.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:flutter/material.dart';
@@ -48,9 +46,6 @@
 //     await jobsCollection.add(job);
 //   }
 
-
-        
-   
 //   @override
 //   Widget build(BuildContext context) {
 //     return SafeArea(
@@ -400,7 +395,6 @@ class _JobadvertisementState extends State<Jobadvertisement> {
     ).show();
   }
 
- 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -492,8 +486,8 @@ class _JobadvertisementState extends State<Jobadvertisement> {
                                           Icon(Icons.note_alt_outlined),
                                           Text(
                                             _postedJobs[index]
-                                                  .containsKey('companyname')
-                                             ? "${_postedJobs[index]['companyname']}"
+                                                    .containsKey('companyname')
+                                                ? "${_postedJobs[index]['companyname']}"
                                                 : "Company name not provided",
                                             style: TextStyle(
                                               color: Colors.black,
@@ -543,8 +537,8 @@ class _JobadvertisementState extends State<Jobadvertisement> {
                                           Icon(Icons.highlight_outlined),
                                           Text(
                                             _postedJobs[index]
-                                                 .containsKey('aboutjob')
-                                             ? "${_postedJobs[index]['aboutjob']}"
+                                                    .containsKey('aboutjob')
+                                                ? "${_postedJobs[index]['aboutjob']}"
                                                 : "about job not provided",
                                           ),
                                         ]),
@@ -564,23 +558,37 @@ class _JobadvertisementState extends State<Jobadvertisement> {
                                         SizedBox(
                                           height: 3,
                                         ),
-                                         Row(
+                                        Row(
                                           children: [
                                             Icon(Icons.email_outlined),
-                                            Text(
-                                                "${_postedJobs[index]['email']}"),
+                                            GestureDetector(
+                                              onTap: () async {
+                                                final email =
+                                                    _postedJobs[index]['email'];
+                                                final url =
+                                                    'mailto:$email?subject=Job Application&body=';
+                                                await launchUrl(Uri.parse(url));
+                                              },
+                                              child: Text(
+                                                "${_postedJobs[index]['email']}",
+                                                style: TextStyle(
+                                                  color: Colors.blue,
+                                                ),
+                                              ),
+                                            ),
                                           ],
                                         ),
                                         SizedBox(
                                           height: 20,
                                         ),
-                                       
                                         ElevatedButton(
                                           onPressed: () async {
-                                            final documentId = _postedJobs[index]
-                                             .containsKey('documentId')
-                                             ? _postedJobs[index]['documentId']
-                                                : '';
+                                            final documentId =
+                                                _postedJobs[index].containsKey(
+                                                        'documentId')
+                                                    ? _postedJobs[index]
+                                                        ['documentId']
+                                                    : '';
                                             await _deleteJob(documentId);
                                           },
                                           style: ButtonStyle(
@@ -589,8 +597,10 @@ class _JobadvertisementState extends State<Jobadvertisement> {
                                                     Colors.deepPurple[300]),
                                             padding: MaterialStateProperty.all(
                                                 EdgeInsets.symmetric(
-                                                    horizontal: 5, vertical: 10)),
-                                            shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                                                    horizontal: 5,
+                                                    vertical: 10)),
+                                            shape: MaterialStateProperty.all(
+                                                RoundedRectangleBorder(
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             27))),

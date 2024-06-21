@@ -45,7 +45,6 @@
 //   final trainingsCollection = firestore.collection('trainings');
 //   await trainingsCollection.add(training);
 // }
- 
 
 //   @override
 //   Widget build(BuildContext context) {
@@ -184,12 +183,12 @@
 //                                     ),
 //                                     Row(children: [
 //                                       Icon(Icons.highlight_outlined),
-//                                       Text(  
+//                                       Text(
 //                                      _postedTrainings[index]
 //                                         .containsKey('abouttraining')
 //                                             ? "${_postedTrainings[index]['abouttraining']}"
 //                                             : "about training not provided",
-                                        
+
 //                                  ), ],),
 //                                     SizedBox(
 //                                       height: 15,
@@ -220,7 +219,7 @@
 //                                   ],
 //                                 ),
 //                               );
-                          
+
 //                             },
 //                           )
 //                         : Text("No training posted"),
@@ -234,7 +233,6 @@
 //     );
 //   }
 // }
-
 
 // class TrainingadvertisementSearchDelegate extends SearchDelegate<String> {
 //   final Trainingadvertisement = [
@@ -295,7 +293,6 @@
 //     );
 //   }
 
-
 // ignore_for_file: library_private_types_in_public_api, prefer_const_constructors, avoid_print, non_constant_identifier_names, use_build_context_synchronously
 
 //   @override
@@ -330,6 +327,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:jobler_application/pages/postjobscreen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(Trainingadvertisement());
@@ -391,7 +389,8 @@ class _TrainingadvertisementState extends State<Trainingadvertisement> {
         final trainingsCollection = firestore.collection('trainings');
         await trainingsCollection.doc(documentId).delete();
         setState(() {
-          _postedTrainings.removeWhere((training) => training['documentId'] == documentId);
+          _postedTrainings
+              .removeWhere((training) => training['documentId'] == documentId);
         });
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Training posting deleted')),
@@ -491,11 +490,11 @@ class _TrainingadvertisementState extends State<Trainingadvertisement> {
                                           Icon(Icons.note_alt_outlined),
                                           Text(
                                             _postedTrainings[index]
-                                                  .containsKey('companyname')
-                                             ? "${_postedTrainings[index]['companyname']}"
+                                                    .containsKey('companyname')
+                                                ? "${_postedTrainings[index]['companyname']}"
                                                 : "Company name not provided",
                                             style: TextStyle(
-                                              color:Colors.black,
+                                              color: Colors.black,
                                               fontSize: 10,
                                               fontWeight: FontWeight.w500,
                                               height: 1,
@@ -542,8 +541,8 @@ class _TrainingadvertisementState extends State<Trainingadvertisement> {
                                           Icon(Icons.highlight_outlined),
                                           Text(
                                             _postedTrainings[index]
-                                                 .containsKey('aboutjob')
-                                             ? "${_postedTrainings[index]['aboutjob']}"
+                                                    .containsKey('aboutjob')
+                                                ? "${_postedTrainings[index]['aboutjob']}"
                                                 : "about job not provided",
                                           ),
                                         ]),
@@ -566,8 +565,22 @@ class _TrainingadvertisementState extends State<Trainingadvertisement> {
                                         Row(
                                           children: [
                                             Icon(Icons.email_outlined),
-                                            Text(
-                                                "${_postedTrainings[index]['email']}"),
+                                            GestureDetector(
+                                              onTap: () async {
+                                                final email =
+                                                    _postedTrainings[index]
+                                                        ['email'];
+                                                final url =
+                                                    'mailto:$email?subject=Job Application&body=';
+                                                await launchUrl(Uri.parse(url));
+                                              },
+                                              child: Text(
+                                                "${_postedTrainings[index]['email']}",
+                                                style: TextStyle(
+                                                  color: Colors.blue,
+                                                ),
+                                              ),
+                                            ),
                                           ],
                                         ),
                                         SizedBox(
@@ -575,10 +588,13 @@ class _TrainingadvertisementState extends State<Trainingadvertisement> {
                                         ),
                                         ElevatedButton(
                                           onPressed: () async {
-                                            final documentId = _postedTrainings[index]
-                                             .containsKey('documentId')
-                                             ? _postedTrainings[index]['documentId']
-                                                : '';
+                                            final documentId =
+                                                _postedTrainings[index]
+                                                        .containsKey(
+                                                            'documentId')
+                                                    ? _postedTrainings[index]
+                                                        ['documentId']
+                                                    : '';
                                             await _deleteTraining(documentId);
                                           },
                                           style: ButtonStyle(
@@ -587,7 +603,8 @@ class _TrainingadvertisementState extends State<Trainingadvertisement> {
                                                     Colors.deepPurple[300]),
                                             padding: MaterialStateProperty.all(
                                                 EdgeInsets.symmetric(
-                                                    horizontal: 5, vertical: 10)),
+                                                    horizontal: 5,
+                                                    vertical: 10)),
                                             shape: MaterialStateProperty.all(
                                                 RoundedRectangleBorder(
                                                     borderRadius:
@@ -650,7 +667,8 @@ class TrainingadvertisementSearchDelegate extends SearchDelegate<String> {
   @override
   Widget buildResults(BuildContext context) {
     final results = Trainingadvertisement.where((Trainingadvertisement) =>
-        Trainingadvertisement.toLowerCase().contains(query.toLowerCase())).toList();
+            Trainingadvertisement.toLowerCase().contains(query.toLowerCase()))
+        .toList();
     return Container(
       color: Colors.white,
       child: ListView.builder(
@@ -677,7 +695,8 @@ class TrainingadvertisementSearchDelegate extends SearchDelegate<String> {
   @override
   Widget buildSuggestions(BuildContext context) {
     final suggestions = Trainingadvertisement.where((Trainingadvertisement) =>
-        Trainingadvertisement.toLowerCase().contains(query.toLowerCase())).toList();
+            Trainingadvertisement.toLowerCase().contains(query.toLowerCase()))
+        .toList();
     return Container(
       color: Colors.white,
       child: ListView.builder(

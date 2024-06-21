@@ -20,42 +20,68 @@ class Frontendquestion extends StatelessWidget {
     );
   }
 }
+class ExpertSystem {
+  List<Question> _questions;
+  int _currentQuestionIndex;
+
+
+  ExpertSystem(
+      {required List<Question> questions, required int currentQuestionIndex})
+      : _questions = questions,
+        _currentQuestionIndex = currentQuestionIndex;
+
+
+  void setQuestions(List<Question> questions) {
+    _questions = questions;
+  }
+
+
+  Question? getNextQuestion() {
+    if (_currentQuestionIndex < _questions.length - 1) {
+      _currentQuestionIndex++;
+      return _questions[_currentQuestionIndex];
+    }
+    return null;
+  }
+
+
+  void updateKnowledgeLevel(bool correctAnswer) {
+    // Implement your expert system logic here
+  }
+}
+
 
 class QuizPage extends StatefulWidget {
   @override
   _QuizPageState createState() => _QuizPageState();
 }
 
+
 class _QuizPageState extends State<QuizPage> {
   List<Question> _questions = [
     Question('1- HTML stands for Hyper Text Markup Language.', true),
-    Question(
-        '2- Semantic HTML elements are Header,Main,Section,Article,Aside,Footer,etc..',
-        true),
-    Question(
-        '3- The empty elements in HTML are the elements that don’t require and closing tag followed by the opening tag',
-        true),
-    Question(
-        '4- The <iframe> tag is used to embed the external documents or the web pages inside the current document by specifying its link inside it.',
-        true),
-    Question(
-        '5- The <meta> HTML tag can be used to define metadata about the HTML page that cant be represented by other HTML elements.',
-        true),
-    Question(
-        '6- A CSS rule consists of a selector and a declaration block.', true),
-    Question(
-        '7- Bootstrap is incredibly flexible, and makes creating a customized, responsive layout a simple task.',
-        true),
-    Question('8- Is < keygen > a valid HTML5 tag?', true),
-    Question(
-        '9- If you have a page of search results and want to highlight the search term,would you use <em> tag?',
-        false),
-    Question('10- There is 4 ways to apply colors in CSS?', false),
+    Question('2- Semantic HTML element are Header,Main,Section,Article,Aside,Footer,etc.. ',true),
+    Question('3- The empty elements in HTML are the elements that dont require and closing tag followed by the opening tag ', true),
+    Question('4- The <iframe> tag is used to embed the external documents or the web pages inside the current document by specifying its link inside it.', true),
+    Question('5- The <meta> HTML tag can be used to define metadata about the HTML page that cant be represented by other HTML elements.', true),
+    Question('6- A CSS rule consists of a selector and a declaration block.', true),
+    Question('7- Bootstrap is incredibly flexible,and makes creating a customized,responsive layout a simple task.', true),
+    Question('8- Is <keygen> a valid HTML5 tag.', true),
+    Question('9- If you have a page of search results and want to highlight the search term, would you use <em> tag.', false),
+    Question('10- There is 4 ways to apply colors in CSS.', false),
   ];
+
 
   int _currentQuestionIndex = 0;
   bool _answer = false; // default answer
   int _score = 0;
+
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +89,7 @@ class _QuizPageState extends State<QuizPage> {
       appBar: AppBar(
         title: Center(
           child: Text(
-            'Frontend Test',
+            'FrontEnd Test',
             selectionColor: Colors.deepPurple[300],
             style: TextStyle(fontSize: 20),
           ),
@@ -123,11 +149,13 @@ class _QuizPageState extends State<QuizPage> {
     );
   }
 
+
   void _checkAnswer() {
     if (_answer == _questions[_currentQuestionIndex].correct) {
       _score++;
     }
   }
+
 
   void _nextQuestion() {
     if (_currentQuestionIndex < _questions.length - 1) {
@@ -136,6 +164,7 @@ class _QuizPageState extends State<QuizPage> {
       _showResults();
     }
   }
+
 
   void _showResults() {
     showDialog(
@@ -157,12 +186,11 @@ class _QuizPageState extends State<QuizPage> {
                     backgroundColor: Colors.deepPurple[300],
                     foregroundColor: Colors.white,
                   ),
-                  onPressed: () {Navigator.pushNamed(context, '/course');},
+                  onPressed: () {},
                   child: const Text(
                     "Back to courses",
                     style: TextStyle(fontSize: 15),
-                  ),
-                  ),
+                  )),
             ),
             const SizedBox(
               height: 10,
@@ -175,7 +203,7 @@ class _QuizPageState extends State<QuizPage> {
                     backgroundColor: Colors.deepPurple[300],
                     foregroundColor: Colors.white,
                   ),
-                  onPressed: () {Navigator.pushNamed(context, '/Jobadvertisement');},
+                  onPressed: () {},
                   child: const Text(
                     "Continue",
                     style: TextStyle(fontSize: 15),
@@ -188,9 +216,13 @@ class _QuizPageState extends State<QuizPage> {
   }
 }
 
+
 class Question {
   String text;
   bool correct;
 
+
   Question(this.text, this.correct);
 }
+
+
