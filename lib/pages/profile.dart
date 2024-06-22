@@ -1,12 +1,14 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, library_private_types_in_public_api, avoid_print, use_build_context_synchronously, sort_child_properties_last, unnecessary_import, unused_element, deprecated_member_use, unused_import, prefer_const_declarations, unused_local_variable, unused_field, unused_label, non_constant_identifier_names
 
 import 'dart:io';
-
+import 'package:path_provider/path_provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(const Profile());
@@ -21,10 +23,11 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
   Map<String, dynamic>? _userData;
-   @override
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _userData = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    _userData =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
   }
 
   File? _image;
@@ -43,7 +46,20 @@ class _ProfileState extends State<Profile> {
       print('Error picking image: $e');
     }
   }
-
+@override
+  void initState() {
+    super.initState();
+    _loadProfilePicture();
+  }
+  Future<void> _loadProfilePicture() async {
+    final directory = await getApplicationDocumentsDirectory();
+    final file = File('${directory.path}/profile_picture.jpg');
+    if (await file.exists()) {
+      setState(() {
+        _image = file;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -58,7 +74,7 @@ class _ProfileState extends State<Profile> {
                 Navigator.pushNamed(context, '/Cv');
               },
             ),
-       ],
+          ],
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -78,19 +94,28 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               const SizedBox(height: 20),
-              // itemProfile('Name', 'patricia manasa', CupertinoIcons.person),
-               itemProfile('Name', _userData?['name'] ?? '', CupertinoIcons.person),
+              itemProfile(
+                  'Name', _userData?['name'] ?? '', CupertinoIcons.person),
               const SizedBox(height: 10),
-              // itemProfile('Phone', '01070858016', CupertinoIcons.phone),
-               itemProfile('Phone', _userData?['phone'] ?? '', CupertinoIcons.phone),
+              itemProfile(
+                  'Phone', _userData?['phone'] ?? '', CupertinoIcons.phone),
               const SizedBox(height: 10),
-              // itemProfile('Address', 'Residential Area /Governorate/ Country',
-              //     CupertinoIcons.location),
-              itemProfile('Address', _userData?['address'] ?? '', CupertinoIcons.location),
+              itemProfile('Address', _userData?['address'] ?? '',
+                  CupertinoIcons.location),
               const SizedBox(height: 10),
               // itemProfile(
-              //     'Email', 'kkjdshfjfbd@gmail.com', CupertinoIcons.mail),
-              itemProfile('Email', _userData?['email'] ?? '', CupertinoIcons.mail),
+              //     'Email', _userData?['email'] ?? '', CupertinoIcons.mail),
+              GestureDetector(
+                  onTap: () async {
+                    final email = _userData?['email'] ?? '';
+                    final url = 'mailto:$email?subject=Job Application&body=';
+                    await launchUrl(Uri.parse(url));
+                  },
+                  child: itemProfile(
+                    'email',
+                    _userData?['email'] ?? '',
+                    CupertinoIcons.mail,
+                  )),
               const SizedBox(
                 height: 10,
               ),
@@ -136,7 +161,7 @@ class _ProfileState extends State<Profile> {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () async {
-                  await FirebaseAuth.instance.signOut();
+                    await FirebaseAuth.instance.signOut();
                     Navigator.of(context)
                         .pushNamedAndRemoveUntil("/Hello", (route) => false);
                   },
@@ -173,7 +198,6 @@ class _ProfileState extends State<Profile> {
         title: Text(title),
         subtitle: Text(subtitle),
         leading: Icon(iconData),
-        // trailing: Icon(Icons.arrow_forward, color: Colors.grey.shade400),
         tileColor: Colors.white,
       ),
     );

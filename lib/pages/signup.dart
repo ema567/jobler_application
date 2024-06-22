@@ -359,17 +359,16 @@ class _SignupState extends State<Signup> {
                                 email: email.text,
                                 password: password.text,
                               );
-                             
-                                FirebaseAuth.instance.currentUser!
-                                    .sendEmailVerification();
                             
+                              
+
                                 Map<String, dynamic> userData = {
                                   'name': name.text,
                                   'phone': phone.text,
                                   'address': address.text,
                                   'email': email.text,
-                                };
-                                Navigator.of(context).pushReplacementNamed(
+                                }; 
+                                  Navigator.of(context).pushReplacementNamed(
                                   "/Profile",
                                   arguments: userData,
                                 );

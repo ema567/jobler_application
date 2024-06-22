@@ -131,6 +131,7 @@ class _LoginState extends State<Login> {
                                       password: password.text);
                               isloading = false;
                               setState(() {});
+
                               if (FirebaseAuth
                                   .instance.currentUser!.emailVerified) {
                                 Navigator.of(context)
@@ -165,7 +166,8 @@ class _LoginState extends State<Login> {
                               } else if (e.code == 'wrong-password') {
                                 errorMessage =
                                     'Wrong password provided for that user.';
-
+                              }
+                              {
                                 AwesomeDialog(
                                   context: context,
                                   dialogType: DialogType.error,
