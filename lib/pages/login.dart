@@ -225,7 +225,7 @@ class _LoginState extends State<Login> {
                                   context: context,
                                   dialogType: DialogType.success,
                                   animType: AnimType.rightSlide,
-                                  title: 'Error',
+                                  title: 'success',
                                   desc:
                                       'A link to reset your password has been sent to your email. Please go to your email and click on the link.',
                                   btnOkOnPress: () {},
