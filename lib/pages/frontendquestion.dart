@@ -186,7 +186,7 @@ class _QuizPageState extends State<QuizPage> {
                     backgroundColor: Colors.deepPurple[300],
                     foregroundColor: Colors.white,
                   ),
-                  onPressed: () {},
+                  onPressed: () {   Navigator.pushNamed(context, "/Course");},
                   child: const Text(
                     "Back to courses",
                     style: TextStyle(fontSize: 15),
@@ -203,7 +203,7 @@ class _QuizPageState extends State<QuizPage> {
                     backgroundColor: Colors.deepPurple[300],
                     foregroundColor: Colors.white,
                   ),
-                  onPressed: () {},
+                  onPressed: ()   {Navigator.pushNamed(context, "/Jobadvertisement");},
                   child: const Text(
                     "Continue",
                     style: TextStyle(fontSize: 15),
